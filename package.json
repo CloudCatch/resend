@@ -1,0 +1,20 @@
+{
+	"name": "resend-for-wordpress",
+	"version": "0.0.0-development",
+	"description": "Resend for WordPress seamlessly integrates the Resend.com API with your WordPress site, replacing the default PHPMailer.",
+	"author": "CloudCatch LLC <david@cloudcatch.io> (https://cloudcatch.io)",
+	"license": "GPL-2.0-or-later",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/cloudcatch/resend.git"
+	},
+	"bugs": {
+		"url": "https://github.com/cloudcatch/resend/issues",
+		"email": "david@cloudcatch.io"
+	},
+	"devDependencies": {
+		"@semantic-release/commit-analyzer": "^11.1.0",
+		"semantic-release": "^23.0.2",
+		"semantic-release-plugin-update-version-in-files": "^1.1.0"
+	}
+}

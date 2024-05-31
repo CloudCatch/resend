@@ -1,0 +1,31 @@
+{
+    "require": {
+        "resend/resend-php": "^0.12.0",
+        "monolog/monolog": "^3.6"
+    },
+    "config": {
+        "platform": {
+            "php": "8.1"
+        },
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "require-dev": {
+        "wp-coding-standards/wpcs": "^3.0",
+        "humanmade/psalm-plugin-wordpress": "^3.1",
+        "vimeo/psalm": "^5.24",
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.7",
+        "phpcompatibility/phpcompatibility-wp": "*"
+    },
+    "scripts": {
+        "phpcs": "phpcs",
+        "phpcbf": "phpcbf",
+        "psalm": "psalm",
+        "test": [
+            "@phpcs",
+            "@psalm"
+        ],
+        "zip": "bash bin/build-zip.sh"
+    }
+}

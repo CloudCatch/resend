@@ -1,0 +1,38 @@
+{
+    "editor.codeActionsOnSave": {
+        "source.fixAll": "explicit"
+    },
+    "editor.formatOnSave": false,
+    "javascript.format.enable": false,
+    "phpsab.fixerEnable": true,
+    "phpsab.snifferEnable": true,
+    "phpsab.standard": "./phpcs.xml",
+    "phpsab.debug": true,
+    "phpsab.autoRulesetSearch": true,
+    "phpsab.snifferMode": "onType",
+    "phpsab.snifferShowSources": true,
+    "files.eol": "\n",
+    "[php]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "valeryanm.vscode-phpsab"
+    },
+    "[js]": {
+        "editor.formatOnSave": true
+    },
+    "[json]": {
+        "editor.formatOnSave": false
+    },
+    "[jsonc]": {
+        "editor.formatOnSave": false
+    },
+    "eslint.validate": [
+        "javascript"
+    ],
+    "css.validate": false,
+    "less.validate": false,
+    "scss.validate": false,
+    "stylelint.validate": [
+        "css",
+        "scss"
+    ]
+}

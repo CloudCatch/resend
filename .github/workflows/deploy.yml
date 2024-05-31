@@ -1,0 +1,68 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php-version: ['8.1']
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+
+      - name: Install composer dependencies
+        run: composer install --no-dev
+
+      - name: Install npm packages
+        run: |
+          npm i
+
+      - name: Semantic release
+        id: semantic
+        uses: cycjimmy/semantic-release-action@v4
+        with:
+          semantic_version: 23
+          branches: | 
+            ['master']
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set env
+        if: steps.semantic.outputs.new_release_published == 'true'
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+
+      - name: Build release
+        if: steps.semantic.outputs.new_release_published == 'true'
+        shell: bash
+        run: |
+          composer run zip
+
+      - name: Release
+        if: steps.semantic.outputs.new_release_published == 'true'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.semantic.outputs.new_release_version }}
+          files: |
+            dist/resend.zip
+
+      - name: WordPress Plugin Deploy
+        id: deploy
+        if: steps.semantic.outputs.new_release_published == 'true'
+        uses: 10up/action-wordpress-plugin-deploy@2.2.2
+        env:
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SLUG: resend
+          VERSION: ${{ steps.semantic.outputs.new_release_version }}
+          BUILD_DIR: dist/resend
