@@ -1,4 +1,4 @@
-=== Resend for WordPress ===
+=== Resend ===
 Contributors:      cloudcatch, dkjensen
 Tags:              resend, smtp, email, api
 Tested up to:      6.5.3
@@ -8,7 +8,7 @@ License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP:      8.1
 Requires at least: 6.0.0
 
-Resend for WordPress seamlessly integrates the Resend.com API with your WordPress site, replacing the default PHPMailer. This ensures reliable email delivery through Resend.com's robust service, enhancing email reliability and performance.
+Resend for WordPress integrates the Resend.com API, replacing PHPMailer to ensure reliable email delivery through Resend.com's robust service.
 
 == Description ==
 
@@ -16,7 +16,7 @@ Resend for WordPress replaces the default PHPMailer in WordPress with the Resend
 
 == Attribution ==
 
-The Resend for WordPress plugin utilizes the Resend.com API. Neither this plugin nor its author(s) are affiliated with, endorsed by, or sponsored by Resend.com.
+The Resend plugin utilizes the Resend.com API. Neither this plugin nor its author(s) are affiliated with, endorsed by, or sponsored by Resend.com.
 
 == Changelog ==
 
@@ -31,7 +31,7 @@ The Resend for WordPress plugin utilizes the Resend.com API. Neither this plugin
 
 == Frequently Asked Questions ==
 
-= How do I configure the Resend for WordPress plugin? =
+= How do I configure the plugin? =
 After activating the plugin, go to the Settings page and enter your Resend.com API key. You can find your API key in your Resend.com account dashboard.
 
 = What happens to my existing email functionality? =

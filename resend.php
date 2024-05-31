@@ -161,10 +161,18 @@ function send_test_email(): void {
 		wp_die( esc_html__( 'Invalid email address.', 'resend' ) );
 	}
 
+	$email_template = __DIR__ . '/public/success.html';
+
+	if ( ! file_exists( $email_template ) || ! is_readable( $email_template ) ) {
+		wp_die( esc_html__( 'The email template does not exist.', 'resend' ) );
+	}
+
+	$body = file_get_contents( $email_template ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+
 	$sent = wp_mail(
 		$email,
 		__( 'Test Email', 'resend' ),
-		__( 'This is a test email from Resend.', 'resend' )
+		$body,
 	);
 
 	if ( ! $sent ) {

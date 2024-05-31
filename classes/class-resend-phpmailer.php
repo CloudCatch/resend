@@ -8,13 +8,14 @@
 namespace CloudCatch\Resend;
 
 use Monolog\Logger;
-use Monolog\Level;
 use Monolog\Handler\StreamHandler;
 use Resend;
 use Resend\Client;
 
 /**
  * Resend PHPMailer class.
+ *
+ * @psalm-suppress PropertyNotSetInConstructor
  */
 class Resend_PHPMailer extends \PHPMailer\PHPMailer\PHPMailer {
 
@@ -52,7 +53,7 @@ class Resend_PHPMailer extends \PHPMailer\PHPMailer\PHPMailer {
 		if ( ! $this->resend ) {
 			$settings = $this->getSettings();
 
-			$this->resend = Resend::client( $settings['api_key'] );
+			$this->resend = Resend::client( (string) $settings['api_key'] );
 		}
 
 		return $this->resend;
@@ -87,8 +88,8 @@ class Resend_PHPMailer extends \PHPMailer\PHPMailer\PHPMailer {
 	protected function formatFrom(): string {
 		$settings = $this->getSettings();
 
-		$from_email = $settings['from_email'];
-		$from_name  = $settings['from_name'];
+		$from_email = (string) $settings['from_email'];
+		$from_name  = (string) $settings['from_name'];
 
 		if ( empty( $from_name ) ) {
 			return $from_email;
@@ -113,8 +114,10 @@ class Resend_PHPMailer extends \PHPMailer\PHPMailer\PHPMailer {
 			throw new \Exception( 'Invalid recipient type.' );
 		}
 
-		/** @var array<array-key, string|array<array-key, string>> $this->to */
-		foreach ( $this->$type as $recipient ) {
+		/** @var array<array-key, string|array<array-key, string>> $property */
+		$property = $this->$type;
+
+		foreach ( $property as $recipient ) {
 			if ( is_array( $recipient ) ) {
 				$recipients[] = $recipient[0];
 			} else {
@@ -149,7 +152,7 @@ class Resend_PHPMailer extends \PHPMailer\PHPMailer\PHPMailer {
 			$content = $attachment[0];
 
 			if ( ! $attachment[5] ) {
-				$content = base64_encode( file_get_contents( $attachment[0] ) );
+				$content = $this->encodeFile( $attachment[0] );
 			}
 
 			$attachments[] = array(
@@ -174,25 +177,6 @@ class Resend_PHPMailer extends \PHPMailer\PHPMailer\PHPMailer {
 		}
 
 		return false;
-	}
-
-	/**
-	 * Format the log message.
-	 *
-	 * @param string $message     The message.
-	 * @param int    $status_code The status code.
-	 *
-	 * @return string
-	 */
-	protected function formatLogMessage( string $message, int $status_code ): string {
-		$response = wp_json_encode(
-			array(
-				'message'     => $message,
-				'status_code' => $status_code,
-			)
-		);
-
-		return (string) $response;
 	}
 
 	/**
@@ -240,13 +224,14 @@ class Resend_PHPMailer extends \PHPMailer\PHPMailer\PHPMailer {
 	 * @return void
 	 */
 	protected function log( $message, $level ) {
+		/** @psalm-suppress PossiblyNullReference */
 		$this->logger->error( $message );
 	}
 
 	/**
 	 * Get Resend settings.
 	 *
-	 * @return array
+	 * @return array<array-key, mixed>
 	 */
 	protected function getSettings(): array {
 		$default_settings = array(

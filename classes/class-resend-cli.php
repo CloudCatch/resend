@@ -14,9 +14,14 @@ class Resend_CLI extends \WP_CLI_Command {
 
 	/**
 	 * Send an email.
+	 *
+	 * @param array $args       The arguments.
+	 * @param array $assoc_args The associative arguments.
+	 *
+	 * @return void
 	 */
 	public function send_test( $args, $assoc_args ) {
-		$recipient = get_option( 'admin_email' );
+		$recipient = (string) get_option( 'admin_email' );
 
 		$subject = 'Test email from Resend';
 

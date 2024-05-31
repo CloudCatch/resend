@@ -4,6 +4,7 @@
 	"description": "Resend for WordPress seamlessly integrates the Resend.com API with your WordPress site, replacing the default PHPMailer.",
 	"author": "CloudCatch LLC <david@cloudcatch.io> (https://cloudcatch.io)",
 	"license": "GPL-2.0-or-later",
+	"private": true,
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/cloudcatch/resend.git"
@@ -11,6 +12,16 @@
 	"bugs": {
 		"url": "https://github.com/cloudcatch/resend/issues",
 		"email": "david@cloudcatch.io"
+	},
+	"scripts": {
+		"email:dev": "maizzle serve",
+		"email:build": "maizzle build production"
+	},
+	"dependencies": {
+		"@maizzle/framework": "latest",
+		"tailwindcss-box-shadow": "^2.0.0",
+		"tailwindcss-email-variants": "^2.0.0",
+		"tailwindcss-mso": "^1.4.1"
 	},
 	"devDependencies": {
 		"@semantic-release/commit-analyzer": "^11.1.0",

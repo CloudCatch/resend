@@ -4,10 +4,13 @@
 composer.json
 composer.lock
 LICENSE
+maizzle.config.js
+maizzle.config.production.js
 package-lock.json
 package.json
 phpcs.xml
 psalm.xml
+tailwind.config.js
 
 /.git
 /.github
@@ -17,4 +20,4 @@ psalm.xml
 /dist
 /logs
 /node_modules
-/public
+/src

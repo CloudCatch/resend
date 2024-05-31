@@ -19,9 +19,9 @@
         "phpcompatibility/phpcompatibility-wp": "*"
     },
     "scripts": {
-        "phpcs": "phpcs",
-        "phpcbf": "phpcbf",
-        "psalm": "psalm",
+        "phpcs": "./vendor/bin/phpcs",
+        "phpcbf": "./vendor/bin/phpcbf",
+        "psalm": "./vendor/bin/psalm --config=psalm.xml",
         "test": [
             "@phpcs",
             "@psalm"
