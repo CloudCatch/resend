@@ -15,7 +15,7 @@ module.exports = {
 			"semantic-release-plugin-update-version-in-files",
 			{
 				files: [
-					"resend.php",
+					"send-emails-with-resend.php",
 					"readme.txt",
 				],
 				placeholder: "0.0.0-development",
