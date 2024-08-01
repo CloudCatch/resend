@@ -76,7 +76,7 @@ class Resend_Settings {
 
 		?>
 		<div class="wrap">
-			<h1><?php esc_html_e( 'Resend Settings', 'resend' ); ?></h1>
+			<h1><?php esc_html_e( 'Resend Settings', 'send-emails-with-resend' ); ?></h1>
 			<form method="post" action="options.php">
 				<?php
 					settings_fields( 'resend_settings' );
@@ -87,14 +87,14 @@ class Resend_Settings {
 
 			<hr style="margin: 2em 0;" />
 
-			<h2><?php esc_html_e( 'Send Test Email', 'resend' ); ?></h2>
+			<h2><?php esc_html_e( 'Send Test Email', 'send-emails-with-resend' ); ?></h2>
 			<form method="post" action="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'resend' ), 'options-general.php' ) ) ); ?>">
 				<p>
-					<label for="resend_test_email" class="screen-reader-text"><?php esc_html_e( 'Email Address', 'resend' ); ?></label>
-					<input type="email" placeholder="<?php esc_attr_e( 'Email address', 'resend' ); ?>" class="regular-text" id="resend_test_email" name="resend_test_email" value="<?php echo esc_attr( $current_user->user_email ); ?>" required />
+					<label for="resend_test_email" class="screen-reader-text"><?php esc_html_e( 'Email Address', 'send-emails-with-resend' ); ?></label>
+					<input type="email" placeholder="<?php esc_attr_e( 'Email address', 'send-emails-with-resend' ); ?>" class="regular-text" id="resend_test_email" name="resend_test_email" value="<?php echo esc_attr( $current_user->user_email ); ?>" required />
 				</p>
 				<?php wp_nonce_field( 'resend_send_test_email', 'resend_send_test_email_nonce' ); ?>
-				<?php submit_button( __( 'Send Test Email', 'resend' ), 'secondary' ); ?>
+				<?php submit_button( __( 'Send Test Email', 'send-emails-with-resend' ), 'secondary' ); ?>
 			</form>
 		</div>
 		<?php

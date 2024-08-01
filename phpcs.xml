@@ -13,7 +13,7 @@
     <arg name="extensions" value="php"/>
 
     <config name="testVersion" value="8.1-"/>
-    <config name="text_domain" value="resend"/>
+    <config name="text_domain" value="send-emails-with-resend"/>
     <config name="minimum_supported_wp_version" value="6.0"/>
 
     <rule ref="PHPCompatibilityWP"/>

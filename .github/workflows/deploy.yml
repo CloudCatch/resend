@@ -16,6 +16,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -54,7 +59,7 @@ jobs:
         with:
           tag_name: ${{ steps.semantic.outputs.new_release_version }}
           files: |
-            dist/resend.zip
+            dist/send-emails-with-resend.zip
 
       - name: WordPress Plugin Deploy
         id: deploy
@@ -63,6 +68,6 @@ jobs:
         env:
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
-          SLUG: resend
+          SLUG: send-emails-with-resend
           VERSION: ${{ steps.semantic.outputs.new_release_version }}
-          BUILD_DIR: dist/resend
+          BUILD_DIR: dist/send-emails-with-resend

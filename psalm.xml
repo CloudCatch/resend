@@ -9,7 +9,7 @@
        phpVersion="8.1">
 
     <projectFiles>
-        <file name="resend.php"/>
+        <file name="send-emails-with-resend.php"/>
         <directory name="classes"/>
         <ignoreFiles>
             <directory name="vendor"/>

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-PLUGIN_SLUG="resend"
+PLUGIN_SLUG="send-emails-with-resend"
 PROJECT_PATH="."
 BUILD_PATH="./dist"
 DEST_PATH="$BUILD_PATH/$PLUGIN_SLUG"

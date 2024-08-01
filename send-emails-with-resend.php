@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       Resend
+ * Plugin Name:       Send Emails with Resend
  * Description:       Send emails using the Resend PHP SDK
  * Requires at least: 6.0.0
  * Requires PHP:      8.1
@@ -9,7 +9,7 @@
  * Author URI:        https://cloudcatch.io
  * License:           GPL v2 or later
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       resend
+ * Text Domain:       send-emails-with-resend
  *
  * @package CloudCatch\Resend
  */
@@ -101,7 +101,14 @@ function handle_phpmailer( &$phpmailer ) {
 	}
 
 	$phpmailer->Subject = $old_phpmailer->Subject;
-	$phpmailer->Body    = $old_phpmailer->Body;
+
+	$body = $old_phpmailer->Body;
+
+	if ( 'text/plain' === $old_phpmailer->ContentType ) {
+		$body = nl2br( $body );
+	}
+
+	$phpmailer->Body = $body;
 }
 /** @psalm-suppress InvalidArgument */
 add_action( 'phpmailer_init', __NAMESPACE__ . '\handle_phpmailer', 1000, 1 );
@@ -118,13 +125,13 @@ function admin_settings() {
 	$settings = new Resend_Settings();
 	$settings
 		/* translators: %s: Resend.com API URL */
-		->registerField( 'api_key', 'password', 'API Key', sprintf( __( 'You can find your API key here: %s', 'resend' ), make_clickable( 'https://resend.com/api-keys' ) ), true )
-		->registerField( 'from_email', 'email', 'From Email', esc_html__( 'The email domain should match a verified sending domain.', 'resend' ), true )
+		->registerField( 'api_key', 'password', 'API Key', sprintf( __( 'You can find your API key here: %s', 'send-emails-with-resend' ), make_clickable( 'https://resend.com/api-keys' ) ), true )
+		->registerField( 'from_email', 'email', 'From Email', esc_html__( 'The email domain should match a verified sending domain.', 'send-emails-with-resend' ), true )
 		->registerField( 'from_name', 'text', 'From Name', '', false );
 
 	add_options_page(
-		esc_html__( 'Resend', 'resend' ),
-		esc_html__( 'Resend', 'resend' ),
+		esc_html__( 'Resend', 'send-emails-with-resend' ),
+		esc_html__( 'Resend', 'send-emails-with-resend' ),
 		'manage_options',
 		'resend',
 		array( $settings, 'renderSettings' )
@@ -146,39 +153,42 @@ function send_test_email(): void {
 	}
 
 	if ( false === wp_verify_nonce( $security, 'resend_send_test_email' ) ) {
-		wp_die( esc_html__( 'Nonce verification failed.', 'resend' ) );
+		wp_die( esc_html__( 'Nonce verification failed.', 'send-emails-with-resend' ) );
 	}
 
 	if ( ! current_user_can( 'manage_options' ) ) {
-		wp_die( esc_html__( 'You do not have permission to do this.', 'resend' ) );
+		wp_die( esc_html__( 'You do not have permission to do this.', 'send-emails-with-resend' ) );
 	}
 
 	if ( ! $email ) {
-		wp_die( esc_html__( 'No email address provided.', 'resend' ) );
+		wp_die( esc_html__( 'No email address provided.', 'send-emails-with-resend' ) );
 	}
 
 	if ( false === is_email( $email ) ) {
-		wp_die( esc_html__( 'Invalid email address.', 'resend' ) );
+		wp_die( esc_html__( 'Invalid email address.', 'send-emails-with-resend' ) );
 	}
 
 	$email_template = __DIR__ . '/public/success.html';
 
 	if ( ! file_exists( $email_template ) || ! is_readable( $email_template ) ) {
-		wp_die( esc_html__( 'The email template does not exist.', 'resend' ) );
+		wp_die( esc_html__( 'The email template does not exist.', 'send-emails-with-resend' ) );
 	}
 
 	$body = file_get_contents( $email_template ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 
 	$sent = wp_mail(
 		$email,
-		__( 'Test Email', 'resend' ),
+		__( 'Test Email', 'send-emails-with-resend' ),
 		$body,
+		array(
+			'Content-Type: text/html; charset=UTF-8',
+		)
 	);
 
 	if ( ! $sent ) {
-		add_settings_error( 'resend', 'resend_send_test_email', esc_html__( 'The email could not be sent.', 'resend' ) );
+		add_settings_error( 'resend', 'resend_send_test_email', esc_html__( 'The email could not be sent.', 'send-emails-with-resend' ) );
 	} else {
-		add_settings_error( 'resend', 'resend_send_test_email', esc_html__( 'The email was sent.', 'resend' ), 'updated' );
+		add_settings_error( 'resend', 'resend_send_test_email', esc_html__( 'The email was sent.', 'send-emails-with-resend' ), 'updated' );
 	}
 
 	set_transient( 'settings_errors', get_settings_errors(), 30 );
