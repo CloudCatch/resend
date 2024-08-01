@@ -1,7 +1,7 @@
 === Send Emails with Resend ===
 Contributors:      cloudcatch, dkjensen
 Tags:              resend, smtp, email, api
-Tested up to:      6.5.3
+Tested up to:      6.6.1
 Stable tag:        0.0.0-development
 License:           GPLv2 or later
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
