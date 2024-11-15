@@ -1,7 +1,7 @@
 === Send Emails with Resend ===
 Contributors:      cloudcatch, dkjensen
 Tags:              resend, smtp, email, api
-Tested up to:      6.6.1
+Tested up to:      6.7
 Stable tag:        0.0.0-development
 License:           GPLv2 or later
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
@@ -19,6 +19,10 @@ Resend for WordPress replaces the default PHPMailer in WordPress with the Resend
 The Resend plugin utilizes the Resend.com API. Neither this plugin nor its author(s) are affiliated with, endorsed by, or sponsored by Resend.com.
 
 == Changelog ==
+
+= 1.1.0 =
+
+* Compatibility with WP 6.7
 
 = 1.0.0 =
 
