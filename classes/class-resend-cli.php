@@ -36,7 +36,7 @@ class Resend_CLI extends \WP_CLI_Command {
 		$headers[] = 'Bcc: bcc_to_2@email.com';
 
 		// Add Reply-To header.
-		$headers[] = 'Reply-To: david@dkjensen.com';
+		$headers[] = "Reply-To: {$recipient}";
 
 		$sent = wp_mail( $recipient, $subject, $message, $headers );
 
