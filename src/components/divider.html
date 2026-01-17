@@ -1,30 +1,43 @@
 <script props>
   // https://maizzle.com/docs/components/divider
+  const spaceY = props['space-y'] || '24px'
+  const spaceX = props['space-x']
+  const top = props.top
+  const bottom = props.bottom
+  const left = props.left
+  const right = props.right
+  const height = props.height || '1px'
+  const color = props.color || '#cbd5e1'
+  const hasBgClass = props.class && props.class.split(' ').some(c => c.startsWith('bg-'))
+  
+  let marginStyle = 'margin: 0;'
+  
+  if (spaceY) {
+    marginStyle = `margin-top: ${spaceY}; margin-bottom: ${spaceY};`
+  } else {
+    if (top) marginStyle += ` margin-top: ${top};`
+    if (bottom) marginStyle += ` margin-bottom: ${bottom};`
+  }
+  
+  let horizontalMargin = ''
+  if (spaceX) {
+    horizontalMargin = `margin-left: ${spaceX}; margin-right: ${spaceX};`
+  } else {
+    if (left) horizontalMargin += `margin-left: ${left}; `
+    if (right) horizontalMargin += `margin-right: ${right};`
+  }
+  
   module.exports = {
-    height: props.height || '1px',
-    color: props.color, // any CSS color value
-    top: props.top, // top margin
-    bottom: props.bottom, // bottom margin
-    left: props.left, // left margin
-    right: props.right, // right margin
-    spaceY: props['space-y'] || '24px', // top and bottom margin
-    spaceX: props['space-x'], // right and left margin
-    hasBgClass: props.class && props.class.split(' ').some(c => c.startsWith('bg-')),
+    height,
+    color,
+    marginStyle,
+    horizontalMargin,
+    hasBgClass,
   }
 </script>
 
 <div
   role="separator"
-  class="{{ (!color && !hasBgClass) && 'bg-slate-300' }}"
-  style="height: {{ height }};
-    line-height: {{ height }};
-    {{ color && `background-color: ${color}` }};
-    margin: 0;
-    {{ spaceY && `margin-top: ${spaceY}; margin-bottom: ${spaceY}` }};
-    {{ spaceX && `margin-left: ${spaceX}; margin-right: ${spaceX}` }};
-    {{ top && `margin-top: ${top}` }};
-    {{ bottom && `margin-bottom: ${bottom}` }};
-    {{ left && `margin-left: ${left}` }};
-    {{ right && `margin-right: ${right}` }};
-  "
+  class="{{ (!color && !hasBgClass) && 'bg-slate-300' }} {{ props.class }}"
+  style="height: {{ height }}; line-height: {{ height }}; background-color: {{ color }}; {{ marginStyle }} {{ horizontalMargin }}"
 >&zwj;</div>

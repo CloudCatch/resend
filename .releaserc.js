@@ -1,6 +1,6 @@
 module.exports = {
 	tagFormat: "${version}",
-	branches: ["master"],
+	branches: ["production"],
 	plugins: [
 		["@semantic-release/npm", { npmPublish: false }],
 		"@semantic-release/commit-analyzer",

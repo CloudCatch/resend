@@ -11,16 +11,16 @@
 |
 */
 
-module.exports = {
+export default {
   build: {
-    templates: {
-      destination: {
-        path: 'public',
-      },
+    output: {
+      path: 'public',
     },
   },
-  inlineCSS: true,
-  removeUnusedCSS: true,
-  shorthandCSS: true,
+  css: {
+     inline: true,
+     purge: {},
+     shorthand: true,
+  },
   prettify: true,
 }

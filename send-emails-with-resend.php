@@ -110,7 +110,6 @@ function handle_phpmailer( &$phpmailer ) {
 
 	$phpmailer->Body = $body;
 }
-/** @psalm-suppress InvalidArgument */
 add_action( 'phpmailer_init', __NAMESPACE__ . '\handle_phpmailer', 1000, 1 );
 
 /**
@@ -145,7 +144,7 @@ add_action( 'admin_menu', __NAMESPACE__ . '\admin_settings', 10, 0 );
  * @return void
  */
 function send_test_email(): void {
-	$security = isset( $_POST['resend_send_test_email_nonce'] ) && is_scalar( $_POST['resend_send_test_email_nonce'] ) ? sanitize_key( wp_unslash( $_POST['resend_send_test_email_nonce'] ?? '' ) ) : '';
+	$security = isset( $_POST['resend_send_test_email_nonce'] ) && is_scalar( $_POST['resend_send_test_email_nonce'] ) ? sanitize_key( wp_unslash( $_POST['resend_send_test_email_nonce'] ) ) : '';
 	$email    = isset( $_POST['resend_test_email'] ) && is_scalar( $_POST['resend_test_email'] ) ? sanitize_email( wp_unslash( $_POST['resend_test_email'] ) ) : '';
 
 	if ( ! $security ) {
