@@ -37,7 +37,7 @@ jobs:
         id: semantic
         uses: cycjimmy/semantic-release-action@v4
         with:
-          semantic_version: 23
+          semantic_version: 25
           branches: | 
             ['production']
         env:

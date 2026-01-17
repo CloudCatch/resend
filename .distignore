@@ -9,7 +9,7 @@ maizzle.config.production.js
 package-lock.json
 package.json
 phpcs.xml
-psalm.xml
+phpstan.neon
 tailwind.config.js
 
 /.git

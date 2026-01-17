@@ -1,5 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  presets: [
+    require('tailwindcss-preset-email'),
+  ],
+  content: [
+    './src/components/**/*.html',
+    './src/layouts/**/*.html',
+    './src/templates/**/*.html',
+  ],
   theme: {
     screens: {
       sm: {max: '600px'},

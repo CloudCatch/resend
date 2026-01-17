@@ -14,8 +14,6 @@ use Resend\Client;
 
 /**
  * Resend PHPMailer class.
- *
- * @psalm-suppress PropertyNotSetInConstructor
  */
 class Resend_PHPMailer extends \PHPMailer\PHPMailer\PHPMailer {
 
@@ -136,19 +134,19 @@ class Resend_PHPMailer extends \PHPMailer\PHPMailer\PHPMailer {
 	protected function formatAttachments(): array {
 		$attachments = array();
 
-		/**
-		 * @var array<int, array{
-		 *     0: string,  // $path
-		 *     1: string,  // $filename
-		 *     2: string,  // $name
-		 *     3: string,  // $encoding
-		 *     4: string,  // $type
-		 *     5: bool,    // isStringAttachment
-		 *     6: string,  // $disposition
-		 *     7: string   // $name
-		 * }> $this->attachment
-		 */
 		foreach ( $this->attachment as $attachment ) {
+			/**
+			 * @var array{
+			 *     0: string,
+			 *     1: string,
+			 *     2: string,
+			 *     3: string,
+			 *     4: string,
+			 *     5: bool,
+			 *     6: string,
+			 *     7: string
+			 * } $attachment
+			 */
 			$content = $attachment[0];
 
 			if ( ! $attachment[5] ) {
@@ -224,7 +222,6 @@ class Resend_PHPMailer extends \PHPMailer\PHPMailer\PHPMailer {
 	 * @return void
 	 */
 	protected function log( $message, $level ) {
-		/** @psalm-suppress PossiblyNullReference */
 		$this->logger->error( $message );
 	}
 
