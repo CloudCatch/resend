@@ -20,9 +20,10 @@ The Resend plugin utilizes the Resend.com API. Neither this plugin nor its autho
 
 == Changelog ==
 
-= 1.1.1 =
+= 1.2.0 =
 
-* Fix reply-to to go to admin email
+* Fix: reply-to to go to admin email
+* Feature: update resend library to 1.1.0
 
 = 1.1.0 =
 
