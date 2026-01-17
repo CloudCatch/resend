@@ -3,7 +3,7 @@ name: Deploy
 on:
   push:
     branches:
-      - master
+      - production
 
 jobs:
   build:
@@ -39,7 +39,7 @@ jobs:
         with:
           semantic_version: 23
           branches: | 
-            ['master']
+            ['production']
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
