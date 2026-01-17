@@ -11,17 +11,24 @@
 |
 */
 
-module.exports = {
+export default {
   build: {
-    templates: {
-      source: 'src/templates',
-      destination: {
-        path: 'public/local',
-      },
-      assets: {
-        source: 'src/images',
-        destination: 'images',
-      },
+    content: ['src/templates/**/*.html'],
+    output: {
+      path: 'public/local',
+      from: ['src/templates'],
+    },
+    static: {
+      source: ['src/images/**/*'],
+      destination: 'images',
+    },
+  },
+  baseURL: {
+    url: '',
+    tags: {
+      img: false,
+      source: false,
+      a: false,
     },
   },
 }
