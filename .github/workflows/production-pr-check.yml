@@ -1,0 +1,22 @@
+name: Production PR Check
+
+on:
+  pull_request:
+    branches:
+      - production
+
+jobs:
+  check-source-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify PR source branch
+        run: |
+          SOURCE_BRANCH="${{ github.head_ref }}"
+          
+          if [[ "$SOURCE_BRANCH" != "master" ]]; then
+            echo "❌ Error: Pull requests to production must come from 'master' branch"
+            echo "Current source branch: $SOURCE_BRANCH"
+            exit 1
+          fi
+          
+          echo "✓ Valid: PR is from master branch"
