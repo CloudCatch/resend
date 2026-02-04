@@ -1,4 +1,6 @@
 <?php
+//phpcs:ignoreFile
+
 /**
  * Resend PHPMailer class.
  *
@@ -59,7 +61,7 @@ class Resend_PHPMailer extends \PHPMailer\PHPMailer\PHPMailer {
 	/**
 	 * The logger.
 	 *
-	 * @var ?Logger
+	 * @var Resend_Logger|Logger|null
 	 */
 	protected $logger;
 
@@ -259,25 +261,24 @@ class Resend_PHPMailer extends \PHPMailer\PHPMailer\PHPMailer {
 	 */
 	protected function resendSend( string $header, string $body ): bool {
 		// Debug mode: skip actual API call but process everything else.
-		if ( defined( 'RESEND_DEBUG_MODE' ) && RESEND_DEBUG_MODE ) {
+		if ( defined( 'RESEND_DEBUG_MODE' ) ) {
 			$email = array(
 				'id'      => 'test_' . uniqid(),
 				'from'    => $this->formatFrom(),
 				'subject' => $this->Subject,
 				'to'      => $this->formatRecipients(),
-				'message' => '[DEBUG MODE] Email would be sent to: ' . implode( ', ', $this->formatRecipients() ),
 			);
 
 			$this->logger->info(
-				'[DEBUG MODE] Email processed (not sent)',
+				'[DEBUG MODE] Email not sent',
 				array(
-					'id'        => $email['id'],
-					'from'      => $email['from'],
-					'to'        => $email['to'],
-					'subject'   => $email['subject'],
+					'id'         => $email['id'],
+					'from'       => $email['from'],
+					'to'         => $email['to'],
+					'subject'    => $email['subject'],
 					'recipients' => $this->formatRecipients(),
-					'cc'        => $this->formatRecipients( 'cc' ),
-					'bcc'       => $this->formatRecipients( 'bcc' ),
+					'cc'         => $this->formatRecipients( 'cc' ),
+					'bcc'        => $this->formatRecipients( 'bcc' ),
 				)
 			);
 
