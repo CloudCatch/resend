@@ -20,6 +20,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// Debug mode: Set RESEND_DEBUG_MODE to true in wp-config.php to skip actual API calls.
+if ( ! defined( 'RESEND_DEBUG_MODE' ) ) {
+	define( 'RESEND_DEBUG_MODE', false );
+}
+
 // Load Composer dependencies.
 require_once __DIR__ . '/vendor/autoload.php';
 
