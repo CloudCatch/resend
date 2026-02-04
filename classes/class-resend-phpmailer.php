@@ -13,6 +13,45 @@ use Resend;
 use Resend\Client;
 
 /**
+ * Simple fallback logger for environments without compatible PSR-3.
+ */
+class Resend_Logger {
+	/**
+	 * Log an error message.
+	 *
+	 * @param string $message The log message.
+	 * @param array  $context The log context.
+	 * @return void
+	 */
+	public function error( string $message, array $context = array() ): void {
+		$context_string = '';
+
+		if ( ! empty( $context ) ) {
+			$context_string = ' ' . wp_json_encode( $context );
+		}
+
+		error_log( '[Resend] ' . $message . $context_string );
+	}
+
+	/**
+	 * Log an informational message.
+	 *
+	 * @param string $message The log message.
+	 * @param array  $context The log context.
+	 * @return void
+	 */
+	public function info( string $message, array $context = array() ): void {
+		$context_string = '';
+
+		if ( ! empty( $context ) ) {
+			$context_string = ' ' . wp_json_encode( $context );
+		}
+
+		error_log( '[Resend] ' . $message . $context_string );
+	}
+}
+
+/**
  * Resend PHPMailer class.
  */
 class Resend_PHPMailer extends \PHPMailer\PHPMailer\PHPMailer {
@@ -64,18 +103,49 @@ class Resend_PHPMailer extends \PHPMailer\PHPMailer\PHPMailer {
 	 */
 	protected function setupLogger(): void {
 		if ( ! $this->logger ) {
-			$this->logger = new Logger( 'resend' );
+			$this->logger = new Resend_Logger();
 
-			$this->logger->pushHandler(
-				new StreamHandler(
-					wp_upload_dir()['basedir'] . '/resend/resend.log',
-					100
-				)
-			);
+			if ( $this->supportsPsrLogV3() ) {
+				$this->logger = new Logger( 'resend' );
+				
+				$this->logger->pushHandler(
+					new StreamHandler(
+						wp_upload_dir()['basedir'] . '/resend/resend.log',
+						100
+					)
+				);
+			}
 
 			// Allow third parties to push additional handlers, etc.
 			do_action_ref_array( 'resend_logger', array( &$this->logger ) );
 		}
+	}
+
+	/**
+	 * Determine if PSR/Log v3 is available (required by Monolog v3).
+	 *
+	 * @return bool
+	 */
+	protected function supportsPsrLogV3(): bool {
+		if ( ! interface_exists( 'Psr\\Log\\LoggerInterface' ) ) {
+			return false;
+		}
+
+		try {
+			$method = new \ReflectionMethod( 'Psr\\Log\\LoggerInterface', 'error' );
+			if ( ! $method->hasReturnType() ) {
+				return false;
+			}
+
+			$return_type = $method->getReturnType();
+			if ( $return_type instanceof \ReflectionNamedType && 'void' !== $return_type->getName() ) {
+				return false;
+			}
+		} catch ( \Throwable $e ) {
+			return false;
+		}
+
+		return true;
 	}
 
 	/**
