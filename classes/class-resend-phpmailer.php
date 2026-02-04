@@ -61,7 +61,7 @@ class Resend_PHPMailer extends \PHPMailer\PHPMailer\PHPMailer {
 	/**
 	 * The logger.
 	 *
-	 * @var Resend_Logger|Logger
+	 * @var Resend_Logger|Logger|null
 	 */
 	protected $logger;
 
