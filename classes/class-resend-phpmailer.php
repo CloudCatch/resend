@@ -7,10 +7,10 @@
 
 namespace CloudCatch\Resend;
 
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
-use Resend;
-use Resend\Client;
+use CloudCatch\Resend\Dependencies\Monolog\Handler\StreamHandler;
+use CloudCatch\Resend\Dependencies\Monolog\Logger;
+use CloudCatch\Resend\Dependencies\Resend;
+use CloudCatch\Resend\Dependencies\Resend\Client;
 
 /**
  * Resend PHPMailer class.

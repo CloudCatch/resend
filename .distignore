@@ -21,3 +21,4 @@ tailwind.config.js
 /logs
 /node_modules
 /src
+/vendor

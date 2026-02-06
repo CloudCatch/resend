@@ -4,6 +4,18 @@
         "monolog/monolog": "^3.10.0",
         "psr/log": "^3.0.2"
     },
+    "autoload": {
+        "files": [
+            "vendor-prefixed/Resend/Resend.php"
+        ],
+        "psr-4": {
+            "CloudCatch\\Resend\\": "classes/",
+            "CloudCatch\\Resend\\Dependencies\\": "vendor-prefixed/"
+        },
+        "classmap": [
+            "vendor-prefixed/composer/"
+        ]
+    },
     "config": {
         "platform": {
             "php": "8.1"
@@ -13,6 +25,7 @@
         }
     },
     "require-dev": {
+        "coenjacobs/mozart": "*",
         "wp-coding-standards/wpcs": "^3.3",
         "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
         "phpcompatibility/phpcompatibility-wp": ">=2.1.8",
@@ -23,10 +36,36 @@
         "phpcs": "./vendor/bin/phpcs",
         "phpcbf": "./vendor/bin/phpcbf",
         "phpstan": "./vendor/bin/phpstan analyze",
+        "mozart": "./vendor/bin/mozart compose",
+        "fix-namespaces": "php bin/fix-mozart-namespaces.php",
+        "post-install-cmd": [
+            "@mozart",
+            "@fix-namespaces",
+            "composer dump-autoload"
+        ],
+        "post-update-cmd": [
+            "@mozart",
+            "@fix-namespaces",
+            "composer dump-autoload"
+        ],
         "test": [
             "@phpcs",
             "@phpstan"
         ],
         "zip": "bash bin/build-zip.sh"
+    },
+    "extra": {
+        "mozart": {
+            "dep_namespace": "CloudCatch\\Resend\\Dependencies\\",
+            "dep_directory": "/vendor-prefixed/",
+            "classmap_directory": "/vendor-prefixed/composer/",
+            "classmap_prefix": "CloudCatch_Resend_",
+            "packages": [
+                "resend/resend-php",
+                "monolog/monolog",
+                "psr/log"
+            ],
+            "delete_vendor_directories": false
+        }
     }
 }
