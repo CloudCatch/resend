@@ -6,5 +6,8 @@ parameters:
     paths:
         - send-emails-with-resend.php
         - classes
+    excludePaths:
+        - vendor-prefixed
+        - bin
     bootstrapFiles:
         - vendor/php-stubs/wp-cli-stubs/wp-cli-stubs.php
