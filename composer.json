@@ -11,10 +11,7 @@
         "psr-4": {
             "CloudCatch\\Resend\\": "classes/",
             "CloudCatch\\Resend\\Dependencies\\": "vendor-prefixed/"
-        },
-        "classmap": [
-            "vendor-prefixed/composer/"
-        ]
+        }
     },
     "config": {
         "platform": {
