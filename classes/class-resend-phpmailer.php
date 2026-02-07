@@ -9,7 +9,7 @@ namespace CloudCatch\Resend;
 
 use CloudCatch\Resend\Dependencies\Monolog\Handler\StreamHandler;
 use CloudCatch\Resend\Dependencies\Monolog\Logger;
-use CloudCatch\Resend\Dependencies\Resend;
+use CloudCatch\Resend\Dependencies\Resend\Resend;
 use CloudCatch\Resend\Dependencies\Resend\Client;
 
 /**
@@ -27,7 +27,7 @@ class Resend_PHPMailer extends \PHPMailer\PHPMailer\PHPMailer {
 	/**
 	 * The Resend instance.
 	 *
-	 * @var ?Resend\Client
+	 * @var ?Client
 	 */
 	protected $resend;
 

@@ -5,9 +5,6 @@
         "psr/log": "^3.0.2"
     },
     "autoload": {
-        "files": [
-            "vendor-prefixed/Resend/Resend.php"
-        ],
         "psr-4": {
             "CloudCatch\\Resend\\": "classes/",
             "CloudCatch\\Resend\\Dependencies\\": "vendor-prefixed/"

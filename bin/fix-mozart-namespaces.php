@@ -16,13 +16,13 @@ if (!file_exists($resend_file)) {
 $content = file_get_contents($resend_file);
 
 // Check if the file already has a namespace declaration
-if (strpos($content, 'namespace CloudCatch\\Resend\\Dependencies;') === false 
+if (strpos($content, 'namespace CloudCatch\\Resend\\Dependencies\\Resend;') === false 
     && strpos($content, 'namespace ') === false) {
     
-    // Add the namespace declaration after the opening PHP tag (base namespace only, no \Resend)
+    // Add the namespace declaration after the opening PHP tag
     $fixed_content = preg_replace(
         '/^<\?php\s*\n/m',
-        "<?php\n\nnamespace CloudCatch\\Resend\\Dependencies;\n\n",
+        "<?php\n\nnamespace CloudCatch\\Resend\\Dependencies\\Resend;\n\n",
         $content,
         1
     );
