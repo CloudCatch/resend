@@ -23,6 +23,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Load Composer dependencies.
 require_once __DIR__ . '/vendor/autoload.php';
 
+// Mozart compatibility: some prefixed SDK files import `CloudCatch\Resend\Dependencies\Resend` as if it were
+// the SDK's main class, but the actual class is `CloudCatch\Resend\Dependencies\Resend\Resend`.
+// Create an alias so references like `Resend::VERSION` work without modifying vendor-prefixed sources.
+if ( ! class_exists( '\\CloudCatch\\Resend\\Dependencies\\Resend', false )
+	&& class_exists( '\\CloudCatch\\Resend\\Dependencies\\Resend\\Resend' ) ) {
+	class_alias(
+		'\\CloudCatch\\Resend\\Dependencies\\Resend\\Resend',
+		'\\CloudCatch\\Resend\\Dependencies\\Resend'
+	);
+}
+
 // Load CLI.
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
 	require_once __DIR__ . '/classes/class-resend-cli.php';

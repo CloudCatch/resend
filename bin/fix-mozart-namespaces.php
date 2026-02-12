@@ -7,6 +7,7 @@
 // Calculate the plugin directory from the script's location
 $plugin_dir = dirname(dirname(__FILE__));
 $resend_file = $plugin_dir . '/vendor-prefixed/Resend/Resend.php';
+$payload_file = $plugin_dir . '/vendor-prefixed/Resend/ValueObjects/Transporter/Payload.php';
 
 if (!file_exists($resend_file)) {
     echo "Error: Could not find {$resend_file}\n";
@@ -33,6 +34,21 @@ if (strpos($content, 'namespace CloudCatch\\Resend\\Dependencies\\Resend;') === 
     }
 } else {
     echo "Namespace already present or file structure unexpected.\n";
+}
+
+// Fix an incorrect import introduced during prefixing:
+// `use CloudCatch\Resend\Dependencies\Resend;` should import the class `...\Resend\Resend`.
+if (file_exists($payload_file) && is_readable($payload_file) && is_writable($payload_file)) {
+    $payload_content = file_get_contents($payload_file);
+
+    $needle = "use CloudCatch\\Resend\\Dependencies\\Resend;";
+    $replacement = "use CloudCatch\\Resend\\Dependencies\\Resend\\Resend;";
+
+    if (strpos($payload_content, $needle) !== false && strpos($payload_content, $replacement) === false) {
+        $fixed_payload_content = str_replace($needle, $replacement, $payload_content);
+        file_put_contents($payload_file, $fixed_payload_content);
+        echo "Fixed Resend import in vendor-prefixed/Resend/ValueObjects/Transporter/Payload.php\n";
+    }
 }
 ?>
 
