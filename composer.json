@@ -20,9 +20,9 @@
         "php-stubs/wp-cli-stubs": "^2.10"
     },
     "scripts": {
-        "phpcs": "phpcs",
-        "phpcbf": "phpcbf",
-        "phpstan": "phpstan analyze",
+        "phpcs": "./vendor/bin/phpcs",
+        "phpcbf": "./vendor/bin/phpcbf",
+        "phpstan": "./vendor/bin/phpstan analyze",
         "test": [
             "@phpcs",
             "@phpstan"
@@ -45,7 +45,6 @@
     },
     "extra": {
         "strauss": {
-            "target_directory": "vendor-prefixed",
             "namespace_prefix": "ResendWP\\",
             "classmap_prefix": "ResendWP_",
             "packages": [

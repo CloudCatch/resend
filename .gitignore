@@ -1,6 +1,6 @@
 /dist
 /vendor
 /vendor-prefixed
+/bin/strauss.phar
 /node_modules
 /public
-/bin/strauss.phar
