@@ -7,10 +7,10 @@
 
 namespace CloudCatch\Resend;
 
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
-use Resend;
-use Resend\Client;
+use ResendWP\Monolog\Logger;
+use ResendWP\Monolog\Handler\StreamHandler;
+use ResendWP_Resend as Resend;
+use ResendWP\Resend\Client;
 
 /**
  * Resend PHPMailer class.
@@ -27,7 +27,7 @@ class Resend_PHPMailer extends \PHPMailer\PHPMailer\PHPMailer {
 	/**
 	 * The Resend instance.
 	 *
-	 * @var ?Resend\Client
+	 * @var ?Client
 	 */
 	protected $resend;
 
