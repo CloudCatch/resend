@@ -20,6 +20,9 @@ The Resend plugin utilizes the Resend.com API. Neither this plugin nor its autho
 
 == Changelog ==
 
+= 1.3.0 =
+* Feature: Vendor dependencies are now scoped using Strauss to prevent class conflicts with other plugins sharing the same libraries
+
 = 1.2.0 =
 
 * Fix: reply-to to go to admin email

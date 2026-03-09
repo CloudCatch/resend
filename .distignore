@@ -2,6 +2,7 @@
 .gitignore
 .nvmrc
 .releaserc.js
+.releaserc.cjs
 composer.lock
 LICENSE
 maizzle.config.js

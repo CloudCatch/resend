@@ -27,6 +27,33 @@
             "@phpcs",
             "@phpstan"
         ],
-        "zip": "bash bin/build-zip.sh"
+        "zip": "bash bin/build-zip.sh",
+        "prefix-namespaces": [
+            "sh -c 'test -f ./bin/strauss.phar || curl -o bin/strauss.phar -L -C - https://github.com/BrianHenryIE/strauss/releases/download/0.27.0/strauss.phar'",
+            "@php bin/strauss.phar",
+            "@composer dump-autoload"
+        ],
+        "post-install-cmd": [
+            "@prefix-namespaces"
+        ],
+        "post-update-cmd": [
+            "@prefix-namespaces"
+        ],
+        "post-autoload-dump": [
+            "sh -c 'test -f ./bin/strauss.phar || curl -o bin/strauss.phar -L -C - https://github.com/BrianHenryIE/strauss/releases/download/0.27.0/strauss.phar'",
+            "@php bin/strauss.phar include-autoloader"
+        ]
+    },
+    "extra": {
+        "strauss": {
+            "delete_vendor_packages": true,
+            "namespace_prefix": "ResendWP\\",
+            "classmap_prefix": "ResendWP_",
+            "packages": [
+                "resend/resend-php",
+                "monolog/monolog",
+                "psr/log"
+            ]
+        }
     }
 }
